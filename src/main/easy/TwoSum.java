@@ -34,22 +34,15 @@ public class TwoSum {
 
 		String name = TwoSum.class.getSimpleName();
 
-		TestRunner.run(
-				name,
-				"nums=" + java.util.Arrays.toString(new int[] { 2, 7, 11, 15 }) + ", target=9",
-				new int[] { 0, 1 },
-				solution.twoSum(new int[] { 2, 7, 11, 15 }, 9));
+		TestRunner.run(name, "nums=[2, 7, 11, 15], target=9", new int[] { 0, 1 },
+				() -> solution.twoSum(new int[] { 2, 7, 11, 15 }, 9));
 
-		TestRunner.run(
-				name,
-				"nums=[3, 2, 4], target=6",
-				new int[] { 1, 2 },
-				solution.twoSum(new int[] { 3, 2, 4 }, 6));
+		TestRunner.run(name, "nums=[3, 2, 4], target=6", new int[] { 1, 2 },
+				() -> solution.twoSum(new int[] { 3, 2, 4 }, 6));
 
-		TestRunner.run(
-				name,
-				"nums=[3, 3], target=6",
-				new int[] { 0, 1 },
-				solution.twoSum(new int[] { 3, 3 }, 6));
+		TestRunner.run(name, "nums=[3, 3], target=6", new int[] { 0, 1 },
+				() -> solution.twoSum(new int[] { 3, 3 }, 6));
+
+		TestRunner.printSummary();
 	}
 }

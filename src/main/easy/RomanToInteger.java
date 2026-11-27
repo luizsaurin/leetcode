@@ -51,8 +51,10 @@ public class RomanToInteger {
 
 		String name = RomanToInteger.class.getSimpleName();
 
-		TestRunner.run(name, "III", 3, solution.romanToInt("III"));
-		TestRunner.run(name, "LVIII", 58, solution.romanToInt("LVIII"));
-		TestRunner.run(name, "MCMXCIV", 1994, solution.romanToInt("MCMXCIV"));
+		TestRunner.run(name, "III", 3, () -> solution.romanToInt("III"));
+		TestRunner.run(name, "LVIII", 58, () -> solution.romanToInt("LVIII"));
+		TestRunner.run(name, "MCMXCIV", 1994, () -> solution.romanToInt("MCMXCIV"));
+
+		TestRunner.printSummary();
 	}
 }
