@@ -6,25 +6,32 @@ import test.TestRunner;
  * @see https://leetcode.com/problems/palindrome-number/
  */
 public class IsPalindrome {
-	public boolean isPalindrome(int x) {
 
-		if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+    public boolean isPalindrome(int x) {
 
-		int original = x;
-		int reversed = 0;
+        if (x < 0 || (x % 10 == 0 && x != 0)) return false;
 
-		while (original > reversed) {
-			reversed = (reversed * 10) + (original % 10);
-			original /= 10;
-		}
+        int original = x;
+        int reversed = 0;
 
-		return original == reversed || original == reversed / 10;
-	}
+        while (original > reversed) {
+            reversed = (reversed * 10) + (original % 10);
+            original /= 10;
+        }
 
-	public static void main() {
-		TestRunner.isPalindrome(121, true);
-		TestRunner.isPalindrome(-121, false);
-		TestRunner.isPalindrome(10, false);
-		TestRunner.isPalindrome(1221, true);
-	}
+        return original == reversed || original == reversed / 10;
+    }
+
+	@SuppressWarnings("java:S1172")
+    public static void main(String[] args) {
+
+        IsPalindrome solution = new IsPalindrome();
+
+		String name = IsPalindrome.class.getSimpleName();
+
+        TestRunner.run(name, 121, true, solution.isPalindrome(121));
+        TestRunner.run(name, -121, false, solution.isPalindrome(-121));
+        TestRunner.run(name, 10, false, solution.isPalindrome(10));
+        TestRunner.run(name, 1221, true, solution.isPalindrome(1221));
+    }
 }

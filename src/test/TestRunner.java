@@ -1,59 +1,55 @@
 package test;
 
-import main.easy.IsPalindrome;
-import main.easy.RomanToInteger;
-import main.easy.TwoSum;
+import java.util.Arrays;
+import java.util.Objects;
 
-@SuppressWarnings({"java:S1118", "java:S106"})
+/**
+ * Lightweight, dependency-free testing utility for LeetCode solutions. Test results, formats inputs and outputs, 
+ * and prints a color-coded result to the console.
+ * 
+ * For now, it supports simple structures such as:
+ * int, Integer, boolean, Boolean, String, int[], boolean[], String[], int[][], Object[]
+ * 
+ * More complex structures such as Linked Lists and Binary Trees may need custom comparison methods
+ * 
+ * @version 1.0
+ */
+@SuppressWarnings({ "java:S1118", "java:S106" })
 public class TestRunner {
 
-	private static void printResult(boolean result, Object input, Object output, Object expected) {
+	private static final String GREEN = "\u001B[32m";
+	private static final String RED = "\u001B[31m";
+	private static final String RESET = "\u001B[0m";
 
-		StringBuilder sb = new StringBuilder();
+	public static void run(String name, Object input, Object expected, Object output) {
 
-		sb.append("[")
-			.append((result) ? "\u001B[32m" : "\u001B[31m")
-			.append((result) ? "PASSED" : "FAILED")
-			.append("\u001B[0m")
-			.append("] ")
-			.append("Input: ")
-			.append(input)
-			.append(" Output: ")
-			.append(output)
-			.append(" -> Expected: ")
-			.append(expected);
+		boolean passed = Objects.deepEquals(output, expected);
 
-		System.out.println(sb.toString());
+		String status = passed
+				? GREEN + "PASSED" + RESET
+				: RED + "FAILED" + RESET;
 
+		System.out.printf(
+				"[%s] %s | Input: %s | Output: %s | Expected: %s%n",
+				status,
+				name,
+				format(input),
+				format(output),
+				format(expected));
 	}
 
-	public static void twoSum(int[] input, int target, int[] expected) {
-		TwoSum solution = new TwoSum();
+	private static String format(Object value) {
 
-		int[] output = solution.twoSum(input, target);
+		if (value == null) {
+			return "null";
+		}
 
-		boolean result = output == expected;
-	
-		printResult(result, input, output, expected);
-	}
+		if (value.getClass().isArray()) {
+			return Arrays.deepToString(new Object[] { value })
+					.replaceFirst("^\\[", "")
+					.replaceFirst("\\]$", "");
+		}
 
-	public static void isPalindrome(int input, boolean expected) {
-		IsPalindrome solution = new IsPalindrome();
-		
-		boolean output = solution.isPalindrome(input);
-
-		boolean result = output == expected;
-
-		printResult(result, input, output, expected);
-	}
-	
-	public static void romanToInteger(String input, int expected) {
-		RomanToInteger solution = new RomanToInteger();
-		
-		int output = solution.romanToInt(input);
-		
-		boolean result = output == expected;
-		
-		printResult(result, input, output, expected);
+		return value.toString();
 	}
 }
