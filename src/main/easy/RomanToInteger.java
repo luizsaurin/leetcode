@@ -1,8 +1,5 @@
 package main.easy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import test.TestRunner;
 
 /**
@@ -11,37 +8,32 @@ import test.TestRunner;
 public class RomanToInteger {
 
 	public int romanToInt(String s) {
-
-		Map<Character, Integer> numbers = new HashMap<>();
-		numbers.put('I', 1);
-		numbers.put('V', 5);
-		numbers.put('X', 10);
-		numbers.put('L', 50);
-		numbers.put('C', 100);
-		numbers.put('D', 500);
-		numbers.put('M', 1000);
-
 		int total = 0;
-		int i = 0;
 
-		while (i < s.length()) {
-			Integer current = numbers.get(s.charAt(i));
+		for (int i = 0; i < s.length(); i++) {
+			int current = VALUES[s.charAt(i)];
 
-			if (i + 1 < s.length()) {
-				Integer next = numbers.get(s.charAt(i + 1));
-
-				if (current < next) {
-					total += next - current;
-					i += 2;
-					continue;
-				}
+			if (i + 1 < s.length() &&
+					current < VALUES[s.charAt(i + 1)]) {
+				total -= current;
+			} else {
+				total += current;
 			}
-
-			total += current;
-			i++;
 		}
 
 		return total;
+	}
+
+	private static final int[] VALUES = new int[128];
+
+	static {
+		VALUES['I'] = 1;
+		VALUES['V'] = 5;
+		VALUES['X'] = 10;
+		VALUES['L'] = 50;
+		VALUES['C'] = 100;
+		VALUES['D'] = 500;
+		VALUES['M'] = 1000;
 	}
 
 	@SuppressWarnings("java:S1172")
